@@ -128,7 +128,7 @@ if __name__ == "__main__":
 ### 📊 4️⃣ Resultados esperados
 
 Una vez ejecutes el script, deberías ver en consola algo como esto:
-
+```bash
 📦 Descargando dataset desde Roboflow...
 ✅ Descarga completa.
 📄 Usando data.yaml: roboflow_project/NOMBRE_PROYECTO/data.yaml
@@ -141,6 +141,7 @@ Epoch 1/100
 Epoch 100/100
 
 🏁 Training complete (100 epochs completed)
+```
 
 📁 Estructura de carpetas esperada:
 
