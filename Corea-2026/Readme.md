@@ -42,86 +42,51 @@ Exportar el dataset en formato YOLOv8
 El siguiente script descarga un dataset directamente desde Roboflow y entrena un modelo YOLOv8 utilizando la librería Ultralytics:
 
 ```
-#### ================================================
-#### 🧠 train_from_roboflow_yolov8.py
-#### ================================================
-import os
-from pathlib import Path
-from roboflow import Roboflow
+# 🚀 Entrenamiento de un modelo YOLOv8 (detección automática de GPU o CPU)
+
+import torch
 from ultralytics import YOLO
 
-ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY") or "TU_API_KEY_AQUI"
-WORK_DIR = Path("roboflow_project")
-PROJECT_NAME = "NOMBRE_DE_TU_PROYECTO"   # el slug del proyecto en Roboflow
-VERSION = 1  # versión del dataset que quieres descargar
-MODEL_BACKBONE = "yolov8x.pt"  # 'yolov8n.pt','yolov8s.pt','yolov8m.pt','yolov8l.pt','yolov8x.pt'
-IMG_SIZE = 640
-EPOCHS = 100
-BATCH = 16
-DEVICE = 0  # GPU (0 o "cuda:0") o CPU ("cpu")
-ACCUM = 2   # acumulación de gradientes
-WORKERS = 8
-LR = 0.01
-WEIGHT_DECAY = 0.0005
-def download_roboflow_dataset(api_key, project_name, version, out_dir):
-    rf = Roboflow(api_key=api_key)
-    project = rf.workspace().project(project_name)
-    v = project.version(version)
-    print("📦 Descargando dataset desde Roboflow...")
-    v.download("yolov8", out_dir)
-    print("✅ Descarga completa.")
+# 🔍 Verificar dispositivo disponible
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"✅ Dispositivo en uso: {device}")
 
-def find_data_yaml(base_dir):
-    for p in Path(base_dir).rglob("data.yaml"):
-        return str(p)
-    raise FileNotFoundError("❌ data.yaml no encontrado en el dataset descargado")
+# 🧠 Cargar el modelo base (puedes cambiar a yolov8s.pt, yolov8m.pt, etc.)
+model = YOLO("yolov8n.pt")
 
-def main():
-    out_dir = WORK_DIR
-    out_dir.mkdir(parents=True, exist_ok=True)
+# ⚙️ Entrenar el modelo
+results = model.train(
+    data="ruta/a/tu/archivo.yaml",  # Ruta al archivo de configuración de datos
+    epochs=100,                     # Número de épocas
+    imgsz=640,                      # Tamaño de las imágenes
+    batch=16,                       # Tamaño del lote
+    name="mi_modelo_yolov8",        # Nombre del experimento
+    project="runs/train",           # Carpeta donde se guardan los resultados
+    device=device                   # Asignar CPU o GPU automáticamente
+)
 
-    download_roboflow_dataset(ROBOFLOW_API_KEY, PROJECT_NAME, VERSION, str(out_dir))
-    data_yaml = find_data_yaml(out_dir)
-    print("📄 Usando data.yaml:", data_yaml)
+# 📊 Evaluar el modelo (opcional)
+metrics = model.val()
 
-    model = YOLO(MODEL_BACKBONE)
-    print("🚀 Iniciando entrenamiento...")
+# 💾 Exportar el modelo entrenado (opcional)
+model.export(format="onnx")  # También puedes usar "torchscript", "engine", etc.
 
-    model.train(
-        data=data_yaml,
-        epochs=EPOCHS,
-        imgsz=IMG_SIZE,
-        batch=BATCH,
-        workers=WORKERS,
-        device=DEVICE,
-        accumulate=ACCUM,
-        lr0=LR,
-        weight_decay=WEIGHT_DECAY,
-        project="runs/roboflow_yolov8",
-        name=f"{PROJECT_NAME}_v{VERSION}_{MODEL_BACKBONE.split('.')[0]}",
-        exist_ok=True
-    )
-
-    print("🏁 Entrenamiento finalizado. Revisa runs/roboflow_yolov8/")
-    
-if __name__ == "__main__":
-    main()
 ```
 
 ---
 
 ### ⚙️ Parámetros principales del entrenamiento
 
-| Parametro         | Descripción                                                                         |
-| ------------------ | -----------------------------------------------------------------------------------|
-| **epochs**         | Número de ciclos de entrenamiento. A mayor valor, más precisión (pero más tiempo). |
-| **imgsz**          | Tamaño de las imágenes de entrada. 640 es el estándar para YOLOv8.                 |
-| **batch**          | Número de imágenes procesadas por iteración. Ajusta según la memoria de tu GPU.    |
-| **device**         | Define si usar CPU o GPU.                                                          |
-| **accumulate**     | Permite simular batches más grandes acumulando gradientes.                         |
-| **lr0**            | Tasa de aprendizaje inicial. Controla la velocidad de convergencia.                |
-| **weight_decay**   | Regularización para evitar sobreajuste.                                            |
-| **project / name** | name	Define la carpeta donde se guardarán los resultados.                          |
+| Parámetro | Descripción                                                                                  | Ejemplo               |
+| --------- | -------------------------------------------------------------------------------------------- | --------------------- |
+| `data`    | Ruta al archivo `.yaml` que contiene las rutas a las imágenes de entrenamiento y validación. | `"dataset/data.yaml"` |
+| `epochs`  | Número de iteraciones completas sobre el conjunto de datos.                                  | `100`                 |
+| `imgsz`   | Tamaño al que se redimensionan las imágenes.                                                 | `640`                 |
+| `batch`   | Número de imágenes procesadas por paso durante el entrenamiento.                             | `16`                  |
+| `name`    | Nombre del experimento o modelo.                                                             | `"mi_modelo_yolov8"`  |
+| `project` | Carpeta donde se guardarán los resultados del entrenamiento.                                 | `"runs/train"`        |
+| `device`  | Define si se usa CPU o GPU automáticamente.                                                  | `"cuda"` o `"cpu"`    |
+
 
 ---
 
@@ -211,73 +176,86 @@ Export the dataset in YOLOv8 format
 ### 💻 3️⃣ Training Code
 This script automatically downloads your Roboflow dataset and trains a YOLOv8 model using the Ultralytics library.
 
-(Same code as above)
+```
+# 🚀 YOLOv8 Model Training (Automatic GPU/CPU Detection)
+
+import torch
+from ultralytics import YOLO
+
+# 🔍 Check available device
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"✅ Using device: {device}")
+
+# 🧠 Load the base model (you can change to yolov8s.pt, yolov8m.pt, etc.)
+model = YOLO("yolov8n.pt")
+
+# ⚙️ Train the model
+results = model.train(
+    data="path/to/your/data.yaml",  # Path to your dataset configuration file
+    epochs=100,                     # Number of training epochs
+    imgsz=640,                      # Image size (resize before training)
+    batch=16,                       # Batch size per iteration
+    name="my_yolov8_model",         # Experiment/model name
+    project="runs/train",           # Folder where results will be saved
+    device=device                   # Automatically assign CPU or GPU
+)
+
+# 📊 Evaluate the trained model (optional)
+metrics = model.val()
+
+# 💾 Export the final model (optional)
+model.export(format="onnx")  # You can also use "torchscript", "engine", etc.
+
+```
 
 ⚙️ Main Training Parameters
-| Parámetro          | Descripción                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| **epochs**         | Número de ciclos de entrenamiento. A mayor valor, más precisión (pero más tiempo). |
-| **imgsz**          | Tamaño de las imágenes de entrada. 640 es el estándar para YOLOv8.                 |
-| **batch**          | Número de imágenes procesadas por iteración. Ajusta según la memoria de tu GPU.    |
-| **device**         | Define si usar CPU o GPU.                                                          |
-| **accumulate**     | Permite simular batches más grandes acumulando gradientes.                         |
-| **lr0**            | Tasa de aprendizaje inicial. Controla la velocidad de convergencia.                |
-| **weight_decay**   | Regularización para evitar sobreajuste.                                            |
-| **project / name** | Define la carpeta donde se guardarán los resultados.                               |
-
+| Parameter | Description                                                             | Example               |
+| --------- | ----------------------------------------------------------------------- | --------------------- |
+| `data`    | Path to the `.yaml` file containing training and validation data paths. | `"dataset/data.yaml"` |
+| `epochs`  | Number of complete passes through the dataset.                          | `100`                 |
+| `imgsz`   | Image size for training (input resolution).                             | `640`                 |
+| `batch`   | Number of images processed per iteration.                               | `16`                  |
+| `name`    | Name for your model or experiment folder.                               | `"my_yolov8_model"`   |
+| `project` | Directory where training results will be saved.                         | `"runs/train"`        |
+| `device`  | Automatically selects CPU or GPU.                                       | `"cuda"` or `"cpu"`   |
 
 ---
 
 ### 📊 4️⃣ Expected Results
 When executed, your console should display logs similar to this:
 
+``` bash
 📦 Downloading dataset from Roboflow...
-
 ✅ Download complete.
-
 📄 Using data.yaml: roboflow_project/PROJECT_NAME/data.yaml
-
 🚀 Starting training...
-
 train: Scanning images and labels...
-
 Epoch 1/100
-
 ...
-
 Epoch 100/100
-
 🏁 Training complete (100 epochs completed)
+```
 
 📁 Expected folder structure:
 
+```
 roboflow_project/
-
 └── PROJECT_NAME/
-
     ├── data.yaml
-    
     ├── train/
-    
     ├── valid/
-    
     └── test/
-
+```
+```
 runs/
-
 └── roboflow_yolov8/
-
     └── PROJECT_NAME_v1_yolov8x/
-    
         ├── weights/
-        
         │   ├── last.pt
-        
         │   └── best.pt
-        
         ├── results.png
-        
         └── opt.yaml
+```
 
 ✅ The trained model will be located at:
 
@@ -285,13 +263,13 @@ runs/
 runs/roboflow_yolov8/PROJECT_NAME_v1_yolov8x/weights/best.pt
 
 Test your trained model with:
-
+```
 from ultralytics import YOLO
 
 model = YOLO("path/to/best.pt")
 results = model("image.jpg")
 results.show()
-
+```
 ---
 
 ## About This Project
