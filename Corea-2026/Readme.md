@@ -12,13 +12,21 @@
 Antes de ejecutar el script, asegúrate de tener instalado **Python 3.8 o superior** y luego instala las dependencias necesarias:
 
 
-``pip install roboflow ultralytics``
+``pip install ultralytics torch torchvision torchaudio``
+
+| Paquete       | Descripción                                                                                        |
+| ------------- | -------------------------------------------------------------------------------------------------- |
+| `ultralytics` | Librería oficial de YOLOv8, incluye las funciones `YOLO()`, `train()`, `val()`, etc.               |
+| `torch`       | Framework base de PyTorch, usado por YOLO para entrenar redes neuronales.                          |
+| `torchvision` | Conjunto de utilidades de visión por computador (transformaciones, datasets, etc.).                |
+| `torchaudio`  | No siempre es necesario, pero se instala junto con PyTorch para evitar conflictos en dependencias. |
+
 
 Si deseas usar una GPU NVIDIA o DirectML, instala PyTorch con soporte CUDA o DirectML:
 
 
 # Para GPU NVIDIA
-``pip install torch torchvision torchaudio`` --index-url https://download.pytorch.org/whl/cu118
+``pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118``
 
 # Para GPU AMD o Intel (Windows)
 ``pip install torch-directml``
@@ -148,7 +156,15 @@ results.show()
 ### 🧩 1️⃣ Library Installation
 Before running the script, make sure you have Python 3.8+ installed and run:
 
-``pip install roboflow ultralytics``
+``pip install ultralytics torch torchvision torchaudio``
+
+| Package       | Description                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------- |
+| `ultralytics` | Official YOLOv8 library. Includes `YOLO()`, `train()`, `val()`, and other core functions. |
+| `torch`       | Core PyTorch framework used by YOLO for neural network training.                          |
+| `torchvision` | Provides computer vision utilities, datasets, and image transformations.                  |
+| `torchaudio`  | Optional but often installed alongside PyTorch to avoid dependency issues.                |
+
 
 If you plan to use GPU (NVIDIA or DirectML), install PyTorch with CUDA or DirectML support:
 
