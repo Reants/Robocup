@@ -15,13 +15,12 @@ Antes de ejecutar el script, asegúrate de tener instalado **Python 3.8 o superi
 pip install roboflow ultralytics
 Si deseas usar una GPU NVIDIA o DirectML, instala PyTorch con soporte CUDA o DirectML:
 
-bash
-Copy code
+
 # Para GPU NVIDIA
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+''pip install torch torchvision torchaudio'' --index-url https://download.pytorch.org/whl/cu118
 
 # Para GPU AMD o Intel (Windows)
-pip install torch-directml
+''pip install torch-directml''
 
 ---
 
