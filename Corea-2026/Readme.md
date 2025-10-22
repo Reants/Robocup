@@ -11,7 +11,7 @@
 
 Antes de ejecutar el script, asegúrate de tener instalado **Python 3.8 o superior** y luego instala las dependencias necesarias:
 
-```bash
+
 pip install roboflow ultralytics
 Si deseas usar una GPU NVIDIA o DirectML, instala PyTorch con soporte CUDA o DirectML:
 
@@ -22,6 +22,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 # Para GPU AMD o Intel (Windows)
 pip install torch-directml
+
 ---
 ### ⚙️ 2️⃣ Configuración del archivo de Roboflow
 🧩 Aquí debes agregar tu explicación personalizada sobre cómo:
@@ -38,8 +39,7 @@ Exportar el dataset en formato YOLOv8
 ### 💻 3️⃣ Código de entrenamiento
 El siguiente script descarga un dataset directamente desde Roboflow y entrena un modelo YOLOv8 utilizando la librería Ultralytics:
 
-python
-Copy code
+
 # ========================================================
 # 🧠 train_from_roboflow_yolov8.py
 # ========================================================
