@@ -110,59 +110,81 @@ if __name__ == "__main__":
 ---
 
 ### ⚙️ Parámetros principales del entrenamiento
-Parámetro	Descripción
-epochs	Número de ciclos de entrenamiento. A mayor valor, más precisión (pero más tiempo).
-imgsz	Tamaño de las imágenes de entrada. 640 es el estándar para YOLOv8.
-batch	Número de imágenes procesadas por iteración. Ajusta según la memoria de tu GPU.
-device	Define si usar CPU o GPU.
-accumulate	Permite simular batches más grandes acumulando gradientes.
-lr0	Tasa de aprendizaje inicial. Controla la velocidad de convergencia.
-weight_decay	Regularización para evitar sobreajuste.
-project / name	Define la carpeta donde se guardarán los resultados.
+
+| Parametro         | Descripción                                                                         |
+| ------------------ | -----------------------------------------------------------------------------------|
+| **epochs**         | Número de ciclos de entrenamiento. A mayor valor, más precisión (pero más tiempo). |
+| **imgsz**          | Tamaño de las imágenes de entrada. 640 es el estándar para YOLOv8.                 |
+| **batch**          | Número de imágenes procesadas por iteración. Ajusta según la memoria de tu GPU.    |
+| **device**         | Define si usar CPU o GPU.                                                          |
+| **accumulate**     | Permite simular batches más grandes acumulando gradientes.                         |
+| **lr0**            | Tasa de aprendizaje inicial. Controla la velocidad de convergencia.                |
+| **weight_decay**   | Regularización para evitar sobreajuste.                                            |
+| **project / name** | name	Define la carpeta donde se guardarán los resultados.                          |
 
 ---
 
 ### 📊 4️⃣ Resultados esperados
+
 Una vez ejecutes el script, deberías ver en consola algo como esto:
 
 📦 Descargando dataset desde Roboflow...
+
 ✅ Descarga completa.
+
 📄 Usando data.yaml: roboflow_project/NOMBRE_PROYECTO/data.yaml
+
 🚀 Iniciando entrenamiento...
+
 train: Scanning images and labels... 
+
 train: New cache created: roboflow_project/NOMBRE_PROYECTO/cache...
+
 Epoch 1/100
+
 ...
+
 Epoch 100/100
+
 🏁 Training complete (100 epochs completed)
+
 📁 Estructura de carpetas esperada:
 
 roboflow_project/
+
 └── NOMBRE_DE_TU_PROYECTO/
+
     ├── data.yaml
+    
     ├── train/
+    
     ├── valid/
+    
     └── test/
 
 runs/
+
 └── roboflow_yolov8/
+
     └── NOMBRE_PROYECTO_v1_yolov8x/
+    
         ├── weights/
+        
         │   ├── last.pt
+        
         │   └── best.pt
+        
         ├── results.png
+        
         └── opt.yaml
 
 ---
 ### ✅ El modelo entrenado se encuentra en:
 
-bash
-Copy code
 runs/roboflow_yolov8/NOMBRE_PROYECTO_v1_yolov8x/weights/best.pt
+
 Puedes probarlo con:
 
-python
-Copy code
 from ultralytics import YOLO
 
 model = YOLO("ruta/a/best.pt")
@@ -177,6 +199,7 @@ results.show()
 Before running the script, make sure you have Python 3.8+ installed and run:
 
 pip install roboflow ultralytics
+
 If you plan to use GPU (NVIDIA or DirectML), install PyTorch with CUDA or DirectML support:
 
 #### For NVIDIA GPUs
@@ -206,15 +229,17 @@ This script automatically downloads your Roboflow dataset and trains a YOLOv8 mo
 (Same code as above)
 
 ⚙️ Main Training Parameters
-Parameter	Description
-epochs	Number of training cycles. Higher = more accuracy (but longer time).
-imgsz	Input image size. 640 is YOLOv8’s default.
-batch	Number of images processed per iteration. Adjust to GPU memory.
-device	Defines whether to use CPU or GPU.
-accumulate	Simulates larger batches by accumulating gradients.
-lr0	Initial learning rate. Controls training speed.
-weight_decay	Regularization term to prevent overfitting.
-project / name	Output folder for experiment results.
+| Parámetro          | Descripción                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| **epochs**         | Número de ciclos de entrenamiento. A mayor valor, más precisión (pero más tiempo). |
+| **imgsz**          | Tamaño de las imágenes de entrada. 640 es el estándar para YOLOv8.                 |
+| **batch**          | Número de imágenes procesadas por iteración. Ajusta según la memoria de tu GPU.    |
+| **device**         | Define si usar CPU o GPU.                                                          |
+| **accumulate**     | Permite simular batches más grandes acumulando gradientes.                         |
+| **lr0**            | Tasa de aprendizaje inicial. Controla la velocidad de convergencia.                |
+| **weight_decay**   | Regularización para evitar sobreajuste.                                            |
+| **project / name** | Define la carpeta donde se guardarán los resultados.                               |
+
 
 ---
 
@@ -222,34 +247,58 @@ project / name	Output folder for experiment results.
 When executed, your console should display logs similar to this:
 
 📦 Downloading dataset from Roboflow...
+
 ✅ Download complete.
+
 📄 Using data.yaml: roboflow_project/PROJECT_NAME/data.yaml
+
 🚀 Starting training...
+
 train: Scanning images and labels...
+
 Epoch 1/100
+
 ...
+
 Epoch 100/100
+
 🏁 Training complete (100 epochs completed)
+
 📁 Expected folder structure:
 
 roboflow_project/
+
 └── PROJECT_NAME/
+
     ├── data.yaml
+    
     ├── train/
+    
     ├── valid/
+    
     └── test/
 
 runs/
+
 └── roboflow_yolov8/
+
     └── PROJECT_NAME_v1_yolov8x/
+    
         ├── weights/
+        
         │   ├── last.pt
+        
         │   └── best.pt
+        
         ├── results.png
+        
         └── opt.yaml
+
 ✅ The trained model will be located at:
 
+
 runs/roboflow_yolov8/PROJECT_NAME_v1_yolov8x/weights/best.pt
+
 Test your trained model with:
 
 from ultralytics import YOLO
@@ -261,7 +310,12 @@ results.show()
 ---
 
 ## About This Project
+
 📌 Author: Juan
+
 📅 Project: Robocup 2026 — YOLOv8 Training with Roboflow
+
 🚀 Libraries Used: Ultralytics · Roboflow
+
 💡 Goal: Simplify object detection training workflows for robotic vision systems.
+
