@@ -22,7 +22,8 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 # Para GPU AMD o Intel (Windows)
 pip install torch-directml
-⚙️ 2️⃣ Configuración del archivo de Roboflow
+---
+### ⚙️ 2️⃣ Configuración del archivo de Roboflow
 🧩 Aquí debes agregar tu explicación personalizada sobre cómo:
 
 Obtener tu API Key en Roboflow
@@ -32,8 +33,9 @@ Crear un proyecto
 Generar una versión del dataset
 
 Exportar el dataset en formato YOLOv8
+---
 
-💻 3️⃣ Código de entrenamiento
+### 💻 3️⃣ Código de entrenamiento
 El siguiente script descarga un dataset directamente desde Roboflow y entrena un modelo YOLOv8 utilizando la librería Ultralytics:
 
 python
@@ -105,7 +107,10 @@ def main():
 
 if __name__ == "__main__":
     main()
-⚙️ Parámetros principales del entrenamiento
+
+---
+
+### ⚙️ Parámetros principales del entrenamiento
 Parámetro	Descripción
 epochs	Número de ciclos de entrenamiento. A mayor valor, más precisión (pero más tiempo).
 imgsz	Tamaño de las imágenes de entrada. 640 es el estándar para YOLOv8.
@@ -116,7 +121,8 @@ lr0	Tasa de aprendizaje inicial. Controla la velocidad de convergencia.
 weight_decay	Regularización para evitar sobreajuste.
 project / name	Define la carpeta donde se guardarán los resultados.
 
-📊 4️⃣ Resultados esperados
+---
+### 📊 4️⃣ Resultados esperados
 Una vez ejecutes el script, deberías ver en consola algo como esto:
 
 vbnet
@@ -150,7 +156,8 @@ runs/
         │   └── best.pt
         ├── results.png
         └── opt.yaml
-✅ El modelo entrenado se encuentra en:
+---
+### ✅ El modelo entrenado se encuentra en:
 
 bash
 Copy code
@@ -164,23 +171,22 @@ from ultralytics import YOLO
 model = YOLO("ruta/a/best.pt")
 results = model("imagen.jpg")
 results.show()
-🇺🇸 English Version
-🧩 1️⃣ Library Installation
+---
+## 🇺🇸 English Version
+---
+### 🧩 1️⃣ Library Installation
 Before running the script, make sure you have Python 3.8+ installed and run:
 
-bash
-Copy code
 pip install roboflow ultralytics
 If you plan to use GPU (NVIDIA or DirectML), install PyTorch with CUDA or DirectML support:
 
-bash
-Copy code
-# For NVIDIA GPUs
+#### For NVIDIA GPUs
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-# For AMD / Intel GPUs (Windows)
+#### For AMD / Intel GPUs (Windows)
 pip install torch-directml
-⚙️ 2️⃣ Roboflow Configuration
+---
+###⚙️ 2️⃣ Roboflow Configuration
 🧩 Add your custom explanation here about how to:
 
 Get your API Key from Roboflow
@@ -191,7 +197,8 @@ Generate a dataset version
 
 Export the dataset in YOLOv8 format
 
-💻 3️⃣ Training Code
+---
+###💻 3️⃣ Training Code
 This script automatically downloads your Roboflow dataset and trains a YOLOv8 model using the Ultralytics library.
 
 (Same code as above)
@@ -207,11 +214,9 @@ lr0	Initial learning rate. Controls training speed.
 weight_decay	Regularization term to prevent overfitting.
 project / name	Output folder for experiment results.
 
-📊 4️⃣ Expected Results
+###📊 4️⃣ Expected Results
 When executed, your console should display logs similar to this:
 
-vbnet
-Copy code
 📦 Downloading dataset from Roboflow...
 ✅ Download complete.
 📄 Using data.yaml: roboflow_project/PROJECT_NAME/data.yaml
@@ -223,8 +228,6 @@ Epoch 100/100
 🏁 Training complete (100 epochs completed)
 📁 Expected folder structure:
 
-markdown
-Copy code
 roboflow_project/
 └── PROJECT_NAME/
     ├── data.yaml
@@ -242,20 +245,16 @@ runs/
         └── opt.yaml
 ✅ The trained model will be located at:
 
-bash
-Copy code
 runs/roboflow_yolov8/PROJECT_NAME_v1_yolov8x/weights/best.pt
 Test your trained model with:
 
-python
-Copy code
 from ultralytics import YOLO
 
 model = YOLO("path/to/best.pt")
 results = model("image.jpg")
 results.show()
 
-About This Project
+##About This Project
 📌 Author: Juan
 📅 Project: Robocup 2026 — YOLOv8 Training with Roboflow
 🚀 Libraries Used: Ultralytics · Roboflow
