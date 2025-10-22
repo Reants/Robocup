@@ -63,7 +63,6 @@ ACCUM = 2   # acumulación de gradientes
 WORKERS = 8
 LR = 0.01
 WEIGHT_DECAY = 0.0005
-
 def download_roboflow_dataset(api_key, project_name, version, out_dir):
     rf = Roboflow(api_key=api_key)
     project = rf.workspace().project(project_name)
@@ -104,7 +103,7 @@ def main():
     )
 
     print("🏁 Entrenamiento finalizado. Revisa runs/roboflow_yolov8/")
-
+    
 if __name__ == "__main__":
     main()
 
