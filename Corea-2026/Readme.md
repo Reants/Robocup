@@ -130,55 +130,38 @@ if __name__ == "__main__":
 Una vez ejecutes el script, deberías ver en consola algo como esto:
 
 📦 Descargando dataset desde Roboflow...
-
 ✅ Descarga completa.
-
 📄 Usando data.yaml: roboflow_project/NOMBRE_PROYECTO/data.yaml
-
 🚀 Iniciando entrenamiento...
 
 train: Scanning images and labels... 
-
 train: New cache created: roboflow_project/NOMBRE_PROYECTO/cache...
-
 Epoch 1/100
-
 ...
-
 Epoch 100/100
 
 🏁 Training complete (100 epochs completed)
 
 📁 Estructura de carpetas esperada:
 
+```
 roboflow_project/
-
 └── NOMBRE_DE_TU_PROYECTO/
-
     ├── data.yaml
-    
     ├── train/
-    
     ├── valid/
-    
     └── test/
-
+```
+```
 runs/
-
 └── roboflow_yolov8/
-
     └── NOMBRE_PROYECTO_v1_yolov8x/
-    
         ├── weights/
-        
         │   ├── last.pt
-        
         │   └── best.pt
-        
         ├── results.png
-        
         └── opt.yaml
-
+```
 ---
 ### ✅ El modelo entrenado se encuentra en:
 
@@ -199,15 +182,15 @@ results.show()
 ### 🧩 1️⃣ Library Installation
 Before running the script, make sure you have Python 3.8+ installed and run:
 
-pip install roboflow ultralytics
+``pip install roboflow ultralytics``
 
 If you plan to use GPU (NVIDIA or DirectML), install PyTorch with CUDA or DirectML support:
 
 #### For NVIDIA GPUs
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+``pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118``
 
 #### For AMD / Intel GPUs (Windows)
-pip install torch-directml
+``pip install torch-directml``
 
 ---
 
